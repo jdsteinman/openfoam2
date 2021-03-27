@@ -2,8 +2,8 @@
 
 // Lf (fore)  = 3
 // Lw (wake)  = 3
-// R  (outer) = 3
-// H  (top/bottom) = 1.2
+// R  (outer) = 1
+// H  (top/bottom) = 3
 // res = 1.2
 
 FoamFile

@@ -24,8 +24,8 @@ np.set_printoptions(precision=8)
 f.write("// Mesh generated on {}\n\n".format(date.today()))
 f.write("// Lf (fore)  = {}\n".format(Lf))
 f.write("// Lw (wake)  = {}\n".format(Lw))
-f.write("// R  (outer) = {}\n".format(H))
-f.write("// H  (top/bottom) = {}\n".format(res))
+f.write("// R  (outer) = {}\n".format(R))
+f.write("// H  (top/bottom) = {}\n".format(H))
 f.write("// res = {}\n\n".format(res))
 
 # Header
