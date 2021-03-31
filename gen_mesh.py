@@ -6,13 +6,11 @@ from datetime import date
 
 # Parameters #############################################
 
-Lf = 3
-Lw = 3
+Lf = 4
+Lw = 6
 R  = 1
-H  = 3
-
-#TODO
-res = 1.2
+H  = 4
+res = 1
 
 ##########################################################
 
@@ -32,7 +30,7 @@ f.write("// res = {}\n\n".format(res))
 f.write("FoamFile\n")
 f.write("{\n")
 f.write("    version  2.0;\n")
-f.write("    format   acsii;\n")
+f.write("    format   ascii;\n")
 f.write("    class    dictionary;\n")
 f.write("    object   blockMeshDict;\n")
 f.write("}\n\n")
@@ -87,9 +85,9 @@ f.write("vertices\n")
 f.write("(\n")
 for i, row in enumerate(vert):
     f.write("    ( ")
-    f.write("  ".join(map("{:.10e}".format, row)))
-    f.write(")\n")
-    # f.write(") // {0} \n".format(i))
+    f.write("  ".join(map("{: .10e}".format, row)))
+    # f.write(")\n")
+    f.write(") // {0} \n".format(i))
 f.write(");\n\n")
 
 
@@ -127,7 +125,7 @@ ncells = np.array([
     [10, 20, 1],
     [10, 20, 1],
     [30, 20, 1],
-    [30, 20, 1],
+    [30, 30, 1],
     [20, 30, 1],
     [20, 30, 1],
     [15, 30, 1],
@@ -136,10 +134,11 @@ ncells = np.array([
     [15, 30, 1],
     [20, 30, 1],
     [20, 30, 1],
-    [30, 20, 1],
+    [30, 30, 1],
     [30, 20, 1],
 ]) 
 ncells = np.around(ncells * res)
+ncells = ncells.astype(int)
 
 grading = np.array([
     [2.0, 1.0, 1.0],
@@ -349,8 +348,8 @@ f.write(");")
 f.close()
 
 ## Uncomment to show grid
-fig, ax = plt.subplots(1,1)
-ax.scatter(vert[:,0], vert[:,1], c='r')
-ax.scatter(epoints[:,0], epoints[:,1], c='b')
-ax.grid()
-plt.show()
+# fig, ax = plt.subplots(1,1)
+# ax.scatter(vert[:,0], vert[:,1], c='r')
+# ax.scatter(epoints[:,0], epoints[:,1], c='b')
+# ax.grid()
+# plt.show()
