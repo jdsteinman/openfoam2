@@ -230,8 +230,8 @@ epoints = np.array([
 
     [0.5/2, 0.5*sqrt(3)/2, -0.5],
     [R/2, R*sqrt(3)/2, -0.5],
-    [0.5/2, 0.5*sqrt(3)/2, -0.5],
-    [R/2, R*sqrt(3)/2, -0.5],
+    [0.5/2, 0.5*sqrt(3)/2, 0.5],
+    [R/2, R*sqrt(3)/2, 0.5],
 
     [-0.5*sqrt(3)/2, 0.5/2, -0.5],
     [-R*sqrt(3)/2, R/2, -0.5],
@@ -240,8 +240,8 @@ epoints = np.array([
 
     [-0.5/2, 0.5*sqrt(3)/2, -0.5],
     [-R/2, R*sqrt(3)/2, -0.5],
-    [-0.5/2, 0.5*sqrt(3)/2, -0.5],
-    [-R/2, R*sqrt(3)/2, -0.5],
+    [-0.5/2, 0.5*sqrt(3)/2, 0.5],
+    [-R/2, R*sqrt(3)/2, 0.5],
 
     [-0.5*sqrt(3)/2, -0.5/2, -0.5],
     [-R*sqrt(3)/2, -R/2, -0.5],
@@ -250,8 +250,8 @@ epoints = np.array([
 
     [-0.5/2, -0.5*sqrt(3)/2, -0.5],
     [-R/2, -R*sqrt(3)/2, -0.5],
-    [-0.5/2, -0.5*sqrt(3)/2, -0.5],
-    [-R/2, -R*sqrt(3)/2, -0.5],
+    [-0.5/2, -0.5*sqrt(3)/2, 0.5],
+    [-R/2, -R*sqrt(3)/2, 0.5],
 
     [0.5*sqrt(3)/2, -0.5/2, -0.5],
     [R*sqrt(3)/2, -R/2, -0.5],
@@ -260,8 +260,8 @@ epoints = np.array([
 
     [0.5/2, -0.5*sqrt(3)/2, -0.5],
     [R/2, -R*sqrt(3)/2, -0.5],
-    [0.5/2, -0.5*sqrt(3)/2, -0.5],
-    [R/2, -R*sqrt(3)/2, -0.5]
+    [0.5/2, -0.5*sqrt(3)/2, 0.5],
+    [R/2, -R*sqrt(3)/2, 0.5]
 ])
 
 
@@ -347,8 +347,17 @@ f.write(");")
 f.close()
 
 ## Uncomment to show grid
-# fig, ax = plt.subplots(1,1)
-# ax.scatter(vert[:,0], vert[:,1], c='r')
-# ax.scatter(epoints[:,0], epoints[:,1], c='b')
+fig, ax = plt.subplots(1,1)
+ax.scatter(vert[:,0], vert[:,1], c='r')
+ax.scatter(epoints[:,0], epoints[:,1], c='b')
+
+# for i in range(32):
+    # ax.annotate(str(i), (vert[i,0], vert[i,1]))
+
+for j, pt in enumerate(epoints):
+    if pt[2] == 0.5:
+        ax.annotate(str(j), (pt[0], pt[1]))    
+
+
 # ax.grid()
-# plt.show()
+plt.show()
