@@ -1,10 +1,11 @@
-// Mesh generated on 2021-04-01
+// Mesh generated on 2021-04-02
 
-// Lf (fore)  = 4
-// Lw (wake)  = 6
-// R  (outer) = 1
-// H  (top/bottom) = 4
-// res = 1
+// Lf (fore)  = 4.0
+// Lw (wake)  = 6.0
+// R  (outer) = 1.0
+// H  (top/bottom) = 4.0
+// xres = 1.0
+// yres = 1.0
 
 FoamFile
 {

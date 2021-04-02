@@ -138,8 +138,8 @@ ncells = np.array([
     [30, 30, 1],
     [30, 20, 1],
 ]) 
-ncells[:,0] = np.around(ncells[0,:] * xres)
-ncells[:,1] = np.around(ncells[0,:] * yres)
+ncells[:,0] = np.around(ncells[:,0] * xres)
+ncells[:,1] = np.around(ncells[:,1] * yres)
 ncells = ncells.astype(int)
 
 grading = np.array([
@@ -351,6 +351,7 @@ f.close()
 
 
 # plots
+"""
 fig, ax = plt.subplots(1,1)
 ax.set_title('Mesh Vertices')
 
@@ -363,9 +364,6 @@ ax.scatter(vert[:,0], vert[:,1], c='b')
 for i in range(32):
     s = str(i) + "(" + str(i+32) + ")"
     ax.text(vert[i,0]+.05, vert[i,1], s, fontsize=8)
-
-for j, block in blocks:
-
 
 # Edges
 for j, edge in enumerate(edges):
@@ -381,3 +379,4 @@ for j, edge in enumerate(edges):
 
 
 plt.show()
+"""
