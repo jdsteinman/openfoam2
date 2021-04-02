@@ -10,8 +10,7 @@ Lf = 4.0
 Lw = 6.0
 R  = 1.0
 H  = 4.0
-xres = 1.0
-yres = 1.0
+res = 1.0
 
 ##########################################################
 
@@ -138,8 +137,7 @@ ncells = np.array([
     [30, 30, 1],
     [30, 20, 1],
 ]) 
-ncells[:,0] = np.around(ncells[:,0] * xres)
-ncells[:,1] = np.around(ncells[:,1] * yres)
+ncells[:,0:2] = np.around(ncells[:,0:2] * res)
 ncells = ncells.astype(int)
 
 grading = np.array([
