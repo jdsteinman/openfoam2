@@ -24,8 +24,7 @@ f.write("// Lf (fore)  = {}\n".format(Lf))
 f.write("// Lw (wake)  = {}\n".format(Lw))
 f.write("// R  (outer) = {}\n".format(R))
 f.write("// H  (top/bottom) = {}\n".format(H))
-f.write("// xres = {}\n".format(xres))
-f.write("// yres = {}\n\n".format(yres))
+f.write("// res = {}\n".format(res))
 
 # Header
 f.write("FoamFile\n")
