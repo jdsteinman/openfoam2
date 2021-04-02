@@ -1,0 +1,8 @@
+/work/06798/steinjd/stampede2/coe-347/of2/steady
+Thu Apr  1 12:08:20 CDT 2021
+Running blockMesh on /work/06798/steinjd/stampede2/coe-347/of2/steady
+Running checkMesh on /work/06798/steinjd/stampede2/coe-347/of2/steady
+Running decomposePar on /work/06798/steinjd/stampede2/coe-347/of2/steady
+Running icoFoam in parallel on /work/06798/steinjd/stampede2/coe-347/of2/steady using 4 processes
+Running reconstructPar on /work/06798/steinjd/stampede2/coe-347/of2/steady
+Thu Apr  1 12:12:57 CDT 2021
