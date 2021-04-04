@@ -35,7 +35,7 @@ colors = [mpl.cm.tab10(i) for i in range(6)]
 # (x,y) = (5.5,-0.5)
 fig, ax = plt.subplots(3,1, sharex=True)
 ax[0].plot(p[:,0], p[:,1], c=colors[0], label="p/pU^2")
-ax[0].set_title("Probe at (x,y)=(5.5,-0.5)")
+ax[0].set_title("Probe at (x,y)=(5.5,-0.5)", fontsize=25)
 ax[0].set_ylabel("Normalized Pressure")
 ax[0].legend(loc=5)
 
@@ -54,7 +54,7 @@ ax[2].legend(loc=1)
 # (x,y) = (5.5,0.5)
 fig2, ax2 = plt.subplots(3,1, sharex=True)
 ax2[0].plot(p[:,0], p[:,2], c=colors[1], label="p/pU^2")
-ax2[0].set_title("Probe (x,y)=(5.5,0.5)")
+ax2[0].set_title("Probe (x,y)=(5.5,0.5)", fontsize=25)
 ax2[0].set_ylabel("Normalized Pressure")
 ax2[0].legend(loc=1)
 

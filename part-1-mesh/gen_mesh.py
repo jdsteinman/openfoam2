@@ -115,14 +115,14 @@ blocks = np.array([
 ])
 
 ncells = np.array([
-    [10, 20, 1],
-    [10, 20, 1],
-    [10, 20, 1],
-    [10, 20, 1],
-    [10, 20, 1],
-    [10, 20, 1],
-    [10, 20, 1],
-    [10, 20, 1],
+    [20, 20, 1],
+    [20, 20, 1],
+    [20, 20, 1],
+    [20, 20, 1],
+    [20, 20, 1],
+    [20, 20, 1],
+    [20, 20, 1],
+    [20, 20, 1],
     [30, 20, 1],
     [30, 30, 1],
     [20, 30, 1],
@@ -346,9 +346,7 @@ for i, (name, arr, btype) in enumerate(zip(bnames, boundaries, btypes)):
 f.write(");")
 f.close()
 
-
 # plots
-"""
 fig, ax = plt.subplots(1,1)
 ax.set_title('Mesh Vertices')
 
@@ -357,23 +355,17 @@ plt.rcParams['font.size'] = 18
 plt.rcParams['axes.linewidth'] = 2
 
 # Vertices
-ax.scatter(vert[:,0], vert[:,1], c='b')
-for i in range(32):
-    s = str(i) + "(" + str(i+32) + ")"
-    ax.text(vert[i,0]+.05, vert[i,1], s, fontsize=8)
-
-# Edges
-for j, edge in enumerate(edges):
-    x = [vert[edge[0],0], vert[edge[1],0]]
-    y = [vert[edge[0],1], vert[edge[1],1]]
-    ax.plot(x, y, c='r')
+ax.scatter(vert[:,0], vert[:,1], c='k')
+# for i in range(32):
+#     s1 = str(i) 
+#     s2 = "(" + str(i+32) + ")"
+#     ax.text(vert[i,0]+.05, vert[i,1], s1, c='r', fontsize=8)
+#     ax.text(vert[i,0]+.15, vert[i,1], s2, c='b', fontsize=8)
 
 
-# ax.scatter(epoints[:,0], epoints[:,1], c='r')
+ax.scatter(epoints[:,0], epoints[:,1], c='r')
 # for j, pt in enumerate(epoints):
 #     if pt[2] == 0.5:
-#         ax.annotate(str(j), (pt[0], pt[1]))    
-
+#         ax.annotate(str(j), (pt[0], pt[1]), fontsize=8)    
 
 plt.show()
-"""
