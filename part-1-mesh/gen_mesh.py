@@ -77,7 +77,7 @@ vert = np.array([
 ])
 
 vert = np.vstack((vert, vert))
-vert[32:,2] += 1
+vert[32:,2] += 0.1
 
 # Write Vertices
 f.write("vertices\n")
