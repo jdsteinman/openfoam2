@@ -20,6 +20,8 @@ delta_ = []
 # Set up plots
 fig,  ax  = plt.subplots(3,1, sharex=True)  # Ur Plot
 fig2, ax2 = plt.subplots(3,1, sharex=True)  # Ut Plot
+fig3, ax3 = plt.subplots(3,1, sharex=True)  # Ut Plot
+fig4, ax4 = plt.subplots(3,1, sharex=True)  # Ut Plot
 colors = plt.get_cmap('tab10')
 
 # Plot Data
@@ -78,13 +80,16 @@ for j, p in enumerate(paths):
 
         # Deltas
         d1 = (R[0]+R[1])/2 - R[0]
-        d2 = (R[1]+R[2])/2 - R[1]
+        d2 = (R[1]+R[2])/2 - d1
         delta = sqrt(d1*d2)
         delta_.append(delta)
 
         # Plot
         ax[i].plot(R, Ur, c=colors(3*j), label=labels[j])
         ax2[i].plot(R, Ut, c=colors(3*j+1), label=labels[j])
+        
+        ax3[i].plot(R, Ur, c=colors(3*j), label=labels[j])
+        ax4[i].plot(R, Ut, c=colors(3*j+1), label=labels[j])
 
         print("============================================")
         print("File: " + p + f)
@@ -103,7 +108,7 @@ for j, p in enumerate(paths):
             L = x[i] - Ux[i]/dudx
             break
 
-    print("L/D =  ",  L)
+    print("L/D =  ",  L-0.5)
 
 e_rr_ = np.array(e_rr_)
 e_rt_ = np.array(e_rt_)
@@ -114,63 +119,77 @@ e_rt_ =  e_rt_.reshape((-1,3))
 delta_ = delta_.reshape((-1,3))
 
 # Plot formats
+
+# Figure 1
 fig.suptitle(r"$U_r$ along various directions", fontsize=25)
 
 ax[0].set_title(r"$\theta=45^{\circ}$")
 ax[1].set_title(r"$\theta=90^{\circ}$")
 ax[2].set_title(r"$\theta=135^{\circ}$")
+ax[2].set_xlabel(r"Normalized Distance from Cylinder, r", fontsize=fsize)
+ax[1].set_ylabel(r"Normalized $U_r$", fontsize=fsize)
 
-ax[0].set_ylabel(r"Normalized $U_r$")
-ax[1].set_ylabel(r"Normalized $U_r$")
-ax[2].set_ylabel(r"Normalized $U_r$")
+for a in ax:
+    a.legend()
+    a.xaxis.set_tick_params(labelbottom=True)
 
-ax[2].set_xlabel(r"Normalized Distance from Cylinder, r")
-
-ax[0].legend()
-ax[1].legend()
-ax[2].legend()
-
-ax[0].xaxis.set_tick_params(labelbottom=True)
-ax[1].xaxis.set_tick_params(labelbottom=True)
-ax[2].xaxis.set_tick_params(labelbottom=True)
-
-fig2.suptitle(r"$U_{theta}$ along various directions", fontsize=25)
+# Figure 2
+fig2.suptitle(r"$U_{\theta}$ along various directions", fontsize=25)
 
 ax2[0].set_title(r"$\theta=45^{\circ}$")
 ax2[1].set_title(r"$\theta=90^{\circ}$")
 ax2[2].set_title(r"$\theta=135^{\circ}$")
+ax2[2].set_xlabel(r"Normalized Distance from Cylinder, r", fontsize=fsize)
+ax2[1].set_ylabel(r"Normalized $U_{\theta}$", fontsize=fsize)
 
-ax2[0].set_ylabel(r"Normalized $U_{theta}$")
-ax2[1].set_ylabel(r"Normalized $U_{theta}$")
-ax2[2].set_ylabel(r"Normalized $U_{theta}$")
+for a in ax2:
+    a.legend()
+    a.xaxis.set_tick_params(labelbottom=True)
 
-ax2[2].set_xlabel(r"Normalized Distance from Cylinder, r")
+# Figure 3
+fig3.suptitle(r"$U_r$ near the wall", fontsize=25)
 
-ax2[0].legend()
-ax2[1].legend()
-ax2[2].legend()
+ax3[0].set_title(r"$\theta=45^{\circ}$")
+ax3[1].set_title(r"$\theta=90^{\circ}$")
+ax3[2].set_title(r"$\theta=135^{\circ}$")
+ax3[2].set_xlabel(r"Normalized Distance from Cylinder, r", fontsize=fsize)
+ax3[1].set_ylabel(r"Normalized $U_r$", fontsize=fsize)
 
-ax2[0].xaxis.set_tick_params(labelbottom=True)
-ax2[1].xaxis.set_tick_params(labelbottom=True)
-ax2[2].xaxis.set_tick_params(labelbottom=True)
+for a in ax3:
+    a.legend()
+    a.xaxis.set_tick_params(labelbottom=True)
+    a.set_xlim(0,1)
+
+# Figure 4
+fig4.suptitle(r"$U_{\theta}$ near the wall", fontsize=fsize)
+
+ax4[0].set_title(r"$\theta=45^{\circ}$")
+ax4[1].set_title(r"$\theta=90^{\circ}$")
+ax4[2].set_title(r"$\theta=135^{\circ}$")
+ax4[2].set_xlabel(r"Normalized Distance from Cylinder, r", fontsize=fsize)
+ax4[1].set_ylabel(r"Normalized $U_{\theta}$", fontsize=fsize)
+for a in ax4:
+    a.legend()
+    a.xaxis.set_tick_params(labelbottom=True)
+    a.set_xlim(0,1)
 
 # Plot Deltas
-fig3, ax3 = plt.subplots(1,1)
-fig4, ax4 = plt.subplots(1,1)
+fig5, ax5 = plt.subplots(1,1)
+fig6, ax6 = plt.subplots(1,1)
 for i in range(3):
-    ax3.plot(1/delta_[:,i], e_rr_[:,i], label=r"$e_{rr}$ "+angles[i])
-    ax3.plot(1/delta_[:,i], e_rt_[:,i], label=r"$e_{r\theta}$ "+angles[i])
+    ax5.plot(1/delta_[:,i], e_rr_[:,i], label=r"$e_{rr}$ "+angles[i])
+    ax5.plot(1/delta_[:,i], e_rt_[:,i], label=r"$e_{r\theta}$ "+angles[i])
 
-    ax4.loglog(1/delta_[:,i], e_rr_[:,i], label=r"$e_{rr}$ "+angles[i])
-    ax4.loglog(1/delta_[:,i], e_rt_[:,i], label=r"$e_{r\theta}$ "+angles[i])
+    ax6.loglog(1/delta_[:,i], e_rr_[:,i], label=r"$e_{rr}$ "+angles[i])
+    ax6.loglog(1/delta_[:,i], e_rt_[:,i], label=r"$e_{r\theta}$ "+angles[i])
 
-ax3.set_title("Strain tensors at wall")
-ax3.set_xlabel(r"Mesh Resolution, $1/\delta$")
-ax3.set_ylabel("Strain")
-ax3.legend()
+ax5.set_title("Strain tensors at wall")
+ax5.set_xlabel(r"Mesh Resolution, $1/\delta$")
+ax5.set_ylabel("Strain")
+ax5.legend()
 
-ax4.set_title("Strain tensors at wall")
-ax4.set_xlabel(r"Mesh Resolution, $1/\delta$")
-ax4.set_ylabel("Strain")
-ax4.legend()
+ax6.set_title("Strain tensors at wall")
+ax6.set_xlabel(r"Mesh Resolution, $1/\delta$")
+ax6.set_ylabel("Strain")
+ax6.legend()
 plt.show()
