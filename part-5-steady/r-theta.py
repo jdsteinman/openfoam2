@@ -4,13 +4,14 @@ import matplotlib.pyplot as plt
 from math import pi, cos, sin, sqrt
 
 ## Import data
-# path = "../part-3-refine/steady/postProcessing/singleGraph/40/"
-path1 = "../data/fine/steady1/postProcessing/singleGraph/40/"
-path2 = "../data/fine/steady2/postProcessing/singleGraph/40/"
-path3 = "../data/fine/steady3/postProcessing/singleGraph/40/"
-paths = [path1, path2, path3]
+path1 = "../data/coarse/steady/postProcessing/singleGraph/40/"
+path2 = "../data/fine/steady1/postProcessing/singleGraph/40/"
+path3 = "../data/fine/steady2/postProcessing/singleGraph/40/"
+path4 = "../data/fine/steady3/postProcessing/singleGraph/40/"
+paths = [path1, path2, path3, path4]
 files = ["lineP_4_U.xy","lineP_2_U.xy","line3P_4_U.xy"]
 labels = ["A", "B", "C", "D", "E"]
+angles = ["45deg", "90deg", "135deg"]
 
 e_rr_ = []
 e_rt_ = []
@@ -21,29 +22,30 @@ fig,  ax  = plt.subplots(3,1, sharex=True)  # Ur Plot
 fig2, ax2 = plt.subplots(3,1, sharex=True)  # Ut Plot
 colors = plt.get_cmap('tab10')
 
-# Plot Deltas
-# fig3, ax3 = plt.subplots(1,1)
-# ax3.scatter(1/delta_, e_rr_, label=r"$e_{rr}$")
-# ax3.scatter(1/delta_, e_rt_, label=r"$e_{r\theta}$")
-# ax3.set_title("Strain tensors at wall")
-# ax3.set_xlabel(r"Mesh Resolution, $1/\delta$")
-# ax3.set_ylabel("Strain")
-# ax3.legend()
-# plt.show()
-
-# fig3, ax3 = plt.subplots(1,1)
-# ax3.loglog(1/delta_, e_rr_, label=r"$e_{rr}$")
-# ax3.loglog(1/delta_, e_rt_, label=r"$e_{r\theta}$")
-# ax3.set_title("Strain tensors at wall")
-# ax3.set_xlabel(r"Mesh Resolution, $1/\delta$")
-# ax3.set_ylabel("Strain")
-# ax3.legend()
-# plt.show()
+# Plot Data
+fsize = 15
+tsize = 18
+tdir = 'in'
+major = 5.0
+minor = 3.0
+lwidth = 2.0
+lhandle = 2.0
+plt.style.use('seaborn-whitegrid')
+plt.rcParams['font.size'] = fsize
+plt.rcParams['legend.fontsize'] = tsize
+plt.rcParams['xtick.direction'] = tdir
+plt.rcParams['ytick.direction'] = tdir
+plt.rcParams['xtick.major.size'] = major
+plt.rcParams['xtick.minor.size'] = minor
+plt.rcParams['ytick.major.size'] = 5.0
+plt.rcParams['ytick.minor.size'] = 5.0
+plt.rcParams['axes.linewidth'] = lwidth
+plt.rcParams['lines.linestyle'] = '-'
+plt.rcParams["xtick.labelsize"] = fsize
+plt.rcParams["ytick.labelsize"] = fsize
+plt.rcParams['legend.handlelength'] = lhandle
 
 for j, p in enumerate(paths):
-
-    e_rr = []
-    e_rt = []
 
     for i, f in enumerate(files):
         Uxy = np.loadtxt(p + f)
@@ -106,11 +108,10 @@ for j, p in enumerate(paths):
 e_rr_ = np.array(e_rr_)
 e_rt_ = np.array(e_rt_)
 delta_ = np.array(delta_)
-print(delta_)
 
-e_rr_ =  e_rr_.reshape((3,-1))
-e_rt_ =  e_rt_.reshape((3,-1))
-delta_ = delta_.reshape((3,-1))
+e_rr_ =  e_rr_.reshape((-1,3))
+e_rt_ =  e_rt_.reshape((-1,3))
+delta_ = delta_.reshape((-1,3))
 
 # Plot formats
 fig.suptitle(r"$U_r$ along various directions", fontsize=25)
@@ -156,24 +157,18 @@ ax2[2].xaxis.set_tick_params(labelbottom=True)
 # Plot Deltas
 fig3, ax3 = plt.subplots(1,1)
 fig4, ax4 = plt.subplots(1,1)
-for i in range(len(paths)):
-    ax3.plot(1/delta_[:,i], e_rr_[:,i], label=r"$e_{rr}$ " + labels[i])
-    ax3.plot(1/delta_[:,i], e_rt_[:,i], label=r"$e_{r\theta}$ " + labels[i])
+for i in range(3):
+    ax3.plot(1/delta_[:,i], e_rr_[:,i], label=r"$e_{rr}$ "+angles[i])
+    ax3.plot(1/delta_[:,i], e_rt_[:,i], label=r"$e_{r\theta}$ "+angles[i])
 
-    ax4.loglog(1/delta_[:,i], e_rr_[:,i], label=r"$e_{rr}$ " + labels[i])
-    ax4.loglog(1/delta_[:,i], e_rt_[:,i], label=r"$e_{r\theta}$ " + labels[i])
+    ax4.loglog(1/delta_[:,i], e_rr_[:,i], label=r"$e_{rr}$ "+angles[i])
+    ax4.loglog(1/delta_[:,i], e_rt_[:,i], label=r"$e_{r\theta}$ "+angles[i])
 
-# fig3, ax3 = plt.subplots(1,1)
-# ax3.scatter(1/delta_[:,0], e_rr_[:,0], label=r"$e_{rr}$")
-# ax3.scatter(1/delta_[:,0], e_rt_[:,0], label=r"$e_{r\theta}$")
 ax3.set_title("Strain tensors at wall")
 ax3.set_xlabel(r"Mesh Resolution, $1/\delta$")
 ax3.set_ylabel("Strain")
 ax3.legend()
 
-# fig4, ax4 = plt.subplots(1,1)
-# ax3.loglog(1/delta_[:,0], e_rr_[:,0], label=r"$e_{rr}$")
-# ax3.loglog(1/delta_[:,0], e_rt_[:,0], label=r"$e_{r\theta}$")
 ax4.set_title("Strain tensors at wall")
 ax4.set_xlabel(r"Mesh Resolution, $1/\delta$")
 ax4.set_ylabel("Strain")
