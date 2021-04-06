@@ -4,11 +4,18 @@ import seaborn as sns
 import numpy as np
 
 # Read data
-with open("./unsteady/postProcessing/probes/0/U") as f:
+with open("../data/coarse/unsteady_coarse/postProcessing/probes/0/U") as f:
     clean_lines = (line.replace('(',' ').replace(')',' ') for line in f)
     U = np.loadtxt(clean_lines, dtype=float, comments='#')
 
-p = np.loadtxt("./unsteady/postProcessing/probes/0/p", dtype=float, comments='#')
+p = np.loadtxt("../data/coarse/unsteady_coarse/postProcessing/probes/0/p", dtype=float, comments='#')
+
+# Get Data in first  seconds
+ii = U[:,0] >= 50
+jj = U[:,0] <= 100
+kk = np.logical_and(ii, jj)
+U = U[kk]
+p = p[kk]
 
 # Plot Data
 fsize = 15
@@ -31,7 +38,6 @@ plt.rcParams['axes.linewidth'] = lwidth
 plt.rcParams['legend.handlelength'] = lhandle
 colors = [mpl.cm.tab10(i) for i in range(6)]
 
-
 # (x,y) = (5.5,-0.5)
 fig, ax = plt.subplots(3,1, sharex=True)
 ax[0].plot(p[:,0], p[:,1], c=colors[0], label="p/pU^2")
@@ -49,7 +55,6 @@ ax[2].plot(U[:,0], U[:,2],  c=colors[2], label="v/U")
 ax[2].set_xlabel("Normalized Time t/(D/U)")
 ax[2].set_ylabel("Normalized Velocity")
 ax[2].legend(loc=1)
-
 
 # (x,y) = (5.5,0.5)
 fig2, ax2 = plt.subplots(3,1, sharex=True)
