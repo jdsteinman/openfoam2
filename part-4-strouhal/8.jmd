@@ -1,0 +1,54 @@
+```julia
+using LinearAlgebra
+using TikzPictures
+```
+
+```julia
+lines = filter(x -> x != "()", map(x -> "(" * join(split(split(x, "#")[1]), ", ") * ")", split(read("unsteady/postProcessing/probes/0/U", String), "\n")))
+data = eval.(Meta.parse.(lines))
+
+```
+
+```julia
+function tikzopts(args...; kwargs...)
+  "[$(join([map(x -> string(x), args)..., map(x -> "$(x)=$(kwargs[x])", collect(keys(kwargs)))...], ","))]"
+end
+
+function normalizer(xs, w)
+  return w ./ maximum(xs)
+end
+
+function tikzopts(args...; kwargs...)
+  "[" * join([map(x -> string(x), args)..., map(x -> "$(x)=$(kwargs[x])", collect(keys(kwargs)))...], ",") * "]"
+end
+
+function normalizer(xs, w)
+  return w ./ maximum(xs)
+end
+
+function tikzplot(xs, ys, width, height, args...; kwargs...)
+  t = xs
+  u0 = ys
+  "\\draw$(tikzopts(args...; kwargs...)) " * join(map(x -> "($(t[x]),$(u0[x]))", 1:length(t)), " -- ") * ";"
+end
+
+width = 9
+height = 4
+t = map(x -> x[1], data)
+tn = normalizer(t, width)
+td = tn .* t
+u0 = map(x -> x[2][1], data)
+u0n = normalizer(u0, height)
+u0d = u0n .* u0
+u1 = map(x -> x[3][1], data)
+u1n = normalizer(u1, height)
+u1d = u1n .* u1
+# searchregion2 = [30, 40]
+# searchregion1 = [52, 62]
+# t0m = find_root(deriv(u0, t), searchregion1...)
+# t1m = find_root(deriv(u1, t), searchregion2...)
+
+# println(abs(t0m - t1m) * 5)
+
+(tikzplot(td, u0d, width, height) * tikzplot(td, u1d, width, height, "dashed"))
+```
